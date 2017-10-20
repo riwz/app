@@ -36,11 +36,6 @@ import org.springframework.samples.petclinic.model.Person;
 
 /**
  * Simple JavaBean domain object representing an owner.
- *
- * @author Ken Krebs
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Michael Isvy
  */
 @Entity
 @Table(name = "owners")
@@ -60,7 +55,6 @@ public class Owner extends Person {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
-
 
     public String getAddress() {
         return this.address;
@@ -86,7 +80,7 @@ public class Owner extends Person {
         this.telephone = telephone;
     }
 
-    protected Set<Pet> getPetsInternal() {
+    private Set<Pet> getPetsInternal() {
         if (this.pets == null) {
             this.pets = new HashSet<>();
         }
@@ -126,7 +120,7 @@ public class Owner extends Person {
      * @param name to test
      * @return true if pet name is already in use
      */
-    public Pet getPet(String name, boolean ignoreNew) {
+    Pet getPet(String name, boolean ignoreNew) {
         name = name.toLowerCase();
         for (Pet pet : getPetsInternal()) {
             if (!ignoreNew || !pet.isNew()) {
@@ -143,7 +137,6 @@ public class Owner extends Person {
     @Override
     public String toString() {
         return new ToStringCreator(this)
-
             .append("id", this.getId())
             .append("new", this.isNew())
             .append("lastName", this.getLastName())

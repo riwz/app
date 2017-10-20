@@ -31,18 +31,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- * @author Michael Isvy
- */
 @Controller
 class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final OwnerRepository owners;
-
 
     @Autowired
     public OwnerController(OwnerRepository clinicService) {
@@ -132,5 +125,4 @@ class OwnerController {
         mav.addObject(this.owners.findById(ownerId));
         return mav;
     }
-
 }
