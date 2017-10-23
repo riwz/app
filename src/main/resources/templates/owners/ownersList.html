@@ -18,14 +18,14 @@
         </thead>
         <tbody>
           <!--/*@thymesVar id="selections" type="messages"*/-->
-          <tr th:each="owner : ${selections}">
+          <tr th:each="person : ${selections}">
               <td>
-                  <a th:href="@{owners/__${owner.id}__}" th:text="${owner.firstName + ' ' + owner.lastName}"/></a>
+                  <a th:href="@{owners/__${person.id}__}" th:text="${person.firstName + ' ' + person.lastName}"/></a>
               </td>
-              <td th:text="${owner.address}"/>
-              <td th:text="${owner.city}"/>
-              <td th:text="${owner.telephone}"/>
-              <td><span th:each="pet : ${owner.pets}" th:text="${pet.name} "/></td>
+              <td th:text="${person.address}"/>
+              <td th:text="${person.city}"/>
+              <td th:text="${person.telephone}"/>
+              <td><span th:each="pet : ${person.pets}" th:text="${pet.name} "/></td>
           </tr>
         </tbody>
     </table>

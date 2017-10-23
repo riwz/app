@@ -24,7 +24,7 @@
         th:text="${#calendars.format(pet.birthDate, 'yyyy-MM-dd')}" /></td>
       <td th:text="${pet.type}" /></td>
       <td
-        th:text="${pet.owner?.firstName + ' ' + pet.owner?.lastName}" /></td>
+        th:text="${pet.person?.firstName + ' ' + pet.person?.lastName}" /></td>
     </tr>
   </table>
 
