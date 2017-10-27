@@ -17,17 +17,17 @@
 //import org.springframework.web.bind.annotation.RequestMethod;
 //
 //@Controller
-//@RequestMapping("/owners/{ownerId}")
+//@RequestMapping("/persons/{ownerId}")
 //class PetController {
 //
 //    private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
 //    private final PetRepository pets;
-//    private final OwnerRepository owners;
+//    private final OwnerRepository persons;
 //
 //    @Autowired
-//    public PetController(PetRepository pets, OwnerRepository owners) {
+//    public PetController(PetRepository pets, OwnerRepository persons) {
 //        this.pets = pets;
-//        this.owners = owners;
+//        this.persons = persons;
 //    }
 //
 //    @ModelAttribute("types")
@@ -37,7 +37,7 @@
 //
 //    @ModelAttribute("person")
 //    public Person findOwner(@PathVariable("ownerId") int ownerId) {
-//        return this.owners.findById(ownerId);
+//        return this.persons.findById(ownerId);
 //    }
 //
 //    @InitBinder("person")
@@ -69,7 +69,7 @@
 //        } else {
 //            person.addPet(pet);
 //            this.pets.save(pet);
-//            return "redirect:/owners/{ownerId}";
+//            return "redirect:/persons/{ownerId}";
 //        }
 //    }
 //
@@ -89,7 +89,7 @@
 //        } else {
 //            person.addPet(pet);
 //            this.pets.save(pet);
-//            return "redirect:/owners/{ownerId}";
+//            return "redirect:/persons/{ownerId}";
 //        }
 //    }
 //

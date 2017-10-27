@@ -54,19 +54,19 @@
 //    }
 //
 //    // Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is called
-//    @RequestMapping(value = "/owners/*/pets/{petId}/visits/new", method = RequestMethod.GET)
+//    @RequestMapping(value = "/persons/*/pets/{petId}/visits/new", method = RequestMethod.GET)
 //    public String initNewVisitForm(@PathVariable("petId") int petId, Map<String, Object> entity) {
 //        return "pets/createOrUpdateVisitForm";
 //    }
 //
 //    // Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is called
-//    @RequestMapping(value = "/owners/{ownerId}/pets/{petId}/visits/new", method = RequestMethod.POST)
+//    @RequestMapping(value = "/persons/{ownerId}/pets/{petId}/visits/new", method = RequestMethod.POST)
 //    public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
 //        if (result.hasErrors()) {
 //            return "pets/createOrUpdateVisitForm";
 //        } else {
 //            this.visits.save(visit);
-//            return "redirect:/owners/{ownerId}";
+//            return "redirect:/persons/{ownerId}";
 //        }
 //    }
 //

@@ -12,7 +12,7 @@
 
     <title>App</title>
 
-    <!--?<!--[if lt IE 9]>-->
+    <!--?&lt;!&ndash;[if lt IE 9]>-->
     <!--?<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
     <!--?<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <!--?<![endif]-->
@@ -53,36 +53,36 @@
           <!--?</div>-->
           <div class="navbar-collapse collapse" id="main-navbar">
               <div class="nav navbar-nav navbar-right">
-  
+
                   <p th:fragment="menuItem (path,text)">
                       <a th:href="@{__${path}__}" th:text="${text}">
                         <!--?<span th:class="'glyphicon  glyphicon-'+${glyph}" class="glyphicon glyphicon-home" aria-hidden="true"></span>-->
                         <!--?<span></span>-->
                       </a>
                   </p>
-  
+
                   <!--<p th:replace="::menuItem ('/','Home')">-->
                       <!--<span class="glyphicon glyphicon-home" aria-hidden="true"></span>-->
                       <!--<span>Home</span>-->
                   <!--</p>-->
 
-                  <p th:replace="::menuItem ('/owners/find','Find owners')">
+                  <p th:replace="::menuItem ('/persons/find','Find persons')">
                       <!--?<span class="glyphicon glyphicon-search" aria-hidden="true"></span>-->
-                      <!--?<span>Find owners</span>-->
+                      <!--?<span>Find persons</span>-->
                   </p>
 
-                  <a class="btn btn-default" th:href="@{/owners/new}">Add person</a>
+                  <a class="btn btn-default" th:href="@{/persons/new}">Add person</a>
 
                   <!--?<p th:replace="::menuItem ('/vets.html','Veterinarians')">-->
                       <!--?<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>-->
                       <!--?<span>Veterinarians</span>-->
                   <!--?</p>-->
-  
+
                   <!--<p th:replace="::menuItem ('/oups','Error')">-->
                       <!--&lt;!&ndash;?<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>&ndash;&gt;-->
                       <!--&lt;!&ndash;?<span>Error</span>&ndash;&gt;-->
                   <!--</p>-->
-  
+
               </div>
           </div>
   </nav>

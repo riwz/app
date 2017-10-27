@@ -1,11 +1,16 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>App</title>
+</head>
+<body>
+<h2>Welcome to App</h2>
 
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<p>
+    <a th:href="@{/persons/find}">Find person</a>
+</p>
 
-  <body>
+<a th:href="@{/persons/new}">Add person</a>
 
-    <h2 th:text="#{welcome}"></h2>
-
-  </body>
-
+</body>
 </html>
