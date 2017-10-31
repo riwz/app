@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 class PersonController {
 
-//    private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "persons/createOrUpdatePersonForm";
+//    private static final String VIEWS_PERSON_CREATE_OR_UPDATE_FORM = "persons/createOrUpdatePersonForm";
     private final PersonRepository persons;
 
     @Autowired
@@ -32,23 +32,23 @@ class PersonController {
 //    public PersonController(PersonRepository appService) {
 //        this.persons = appService;
 //    }
-//
-//    @InitBinder
-//    public void setAllowedFields(WebDataBinder dataBinder) {
-//        dataBinder.setDisallowedFields("id");
-//    }
+
+    @InitBinder
+    public void setAllowedFields(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
 
 //    @RequestMapping(value = "/persons/new", method = RequestMethod.GET)
 //    public String initCreationForm(Map<String, Object> entity) {
 //        Person person = new Person();
 //        entity.put("person", person);
-//        return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+//        return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
 //    }
 
 //    @RequestMapping(value = "/persons/new", method = RequestMethod.POST)
 //    public String processCreationForm(@Valid Person person, BindingResult result) {
 //        if (result.hasErrors()) {
-//            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+//            return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
 //        } else {
 //            this.persons.save(person);
 //            return "redirect:/persons/" + person.getId();
@@ -62,39 +62,38 @@ class PersonController {
     }
 
     @GetMapping("/persons")
-    public String processFindForm(Person person, Map<String, Object> model) {
+    public String processFindForm(Person person, Map<String, Object> model, BindingResult result) {
 
-        if (person.getLastName() == null) {
-            person.setLastName("");
-        }
+//        if (person.getLastName() == null) {
+//            person.setLastName("");
+//        }
 
         Collection<Person> results = this.persons.findByLastName(person.getLastName());
 
         if (results.isEmpty()) {
-            //result.rejectValue("lastName", "notFound", "not found");
+            result.rejectValue("lastName", "notFound", "not found");
             return "persons/findPersons";
-
-        } else if (results.size() == 1) {
+        } else
+            if (results.size() == 1) {
             person = results.iterator().next();
             return "redirect:/persons/" + person.getId();
-
         } else {
             model.put("selections", results);
             return "persons/personsList";
         }
     }
 
-//    @RequestMapping(value = "/persons/{ownerId}/edit", method = RequestMethod.GET)
-//    public String initUpdateOwnerForm(@PathVariable("ownerId") UUID personId, Model entity) {
+//    @RequestMapping(value = "/persons/{personId}/edit", method = RequestMethod.GET)
+//    public String initUpdatePersonForm(@PathVariable("personId") UUID personId, Model entity) {
 //        Person person = this.persons.findById(personId);
 //        entity.addAttribute(person);
-//        return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+//        return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
 //    }
 
 //    @RequestMapping(value = "/persons/{personId}/edit", method = RequestMethod.POST)
 //    public String processUpdatePersonForm(@Valid Person person, BindingResult result, @PathVariable("personId") UUID personId) {
 //        if (result.hasErrors()) {
-//            return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+//            return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
 //        } else {
 //            person.setId(personId);
 //            this.persons.save(person);
