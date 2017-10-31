@@ -1,6 +1,7 @@
 package org.springframework.samples.app.person;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,14 +21,18 @@ import org.springframework.web.servlet.ModelAndView;
 class PersonController {
 
 //    private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "persons/createOrUpdatePersonForm";
+    private final PersonRepository persons;
+
     @Autowired
-    private PersonRepository persons;
+    public PersonController(PersonRepository persons) {
+        this.persons = persons;
+    }
 
 //    @Autowired
 //    public PersonController(PersonRepository appService) {
 //        this.persons = appService;
 //    }
-
+//
 //    @InitBinder
 //    public void setAllowedFields(WebDataBinder dataBinder) {
 //        dataBinder.setDisallowedFields("id");
@@ -51,19 +56,32 @@ class PersonController {
 //    }
 
     @GetMapping("/persons/find")
-    public String initFindForm(Model model) {
-        model.addAttribute("person", new Person());
-        return "persons";
+    public String initFindForm(Map<String, Object> model) {
+        model.put("person", new Person());
+        return "persons/findPersons";
     }
 
     @GetMapping("/persons")
-    public String processFindForm(Person person) {
+    public String processFindForm(Person person, Map<String, Object> model) {
 
-        Collection<Person> results = persons.findByLastName(person.getLastName());
+        if (person.getLastName() == null) {
+            person.setLastName("");
+        }
 
-        person = results.iterator().next();
+        Collection<Person> results = this.persons.findByLastName(person.getLastName());
 
-        return "redirect:/persons/" + person.getId();
+        if (results.isEmpty()) {
+            //result.rejectValue("lastName", "notFound", "not found");
+            return "persons/findPersons";
+
+        } else if (results.size() == 1) {
+            person = results.iterator().next();
+            return "redirect:/persons/" + person.getId();
+
+        } else {
+            model.put("selections", results);
+            return "persons/personsList";
+        }
     }
 
 //    @RequestMapping(value = "/persons/{ownerId}/edit", method = RequestMethod.GET)
@@ -84,10 +102,10 @@ class PersonController {
 //        }
 //    }
 
-    @PostMapping("/persons/{personId}")
+    @RequestMapping("/persons/{personId}")
     public ModelAndView showPerson(@PathVariable("personId") UUID personId) {
         ModelAndView mav = new ModelAndView("persons/personDetails");
-        mav.addObject(persons.findById(personId));
+        mav.addObject(this.persons.findById(personId));
         return mav;
     }
 }

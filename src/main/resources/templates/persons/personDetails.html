@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <h1>Name</h1>
 
-<p th:text="${person.last_name}"/>
+<table th:object="${person}">
+    <tr>
+        <td th:text="*{lastName}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

@@ -1,10 +1,14 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <h2>Find owners</h2>
 <label>Last name</label>
-<form action="#" th:object="${person}" th:action="@{/persons}" method="get">
 
-<input size="20" type="text" th:field="*{last_name}"/>
+
+<form th:object="${person}" th:action="@{/persons}" method="get">
+
+
+<input size="20" th:field="*{lastName}"/>
 
     <p>
         <button type="submit">Find persons</button>
