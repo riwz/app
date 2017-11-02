@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
 <h1>Name</h1>
-
-<table th:object="${person}">
-    <tr>
-        <td th:text="*{lastName}"></td>
-    </tr>
-</table>
-
+<div th:object="${person}">
+<p th:text="*{lastName}"></p>
+</div>
 </body>
 </html>

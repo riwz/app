@@ -13,7 +13,7 @@ public class StandardEntity implements Serializable{
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    protected UUID id;
+    private UUID id;
 
     public UUID getId() {
         return id;

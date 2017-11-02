@@ -20,40 +20,28 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 class PersonController {
 
-//    private static final String VIEWS_PERSON_CREATE_OR_UPDATE_FORM = "persons/createOrUpdatePersonForm";
-    private final PersonRepository persons;
+    private static final String VIEWS_PERSON_CREATE_OR_UPDATE_FORM = "persons/createOrUpdatePersonForm";
 
     @Autowired
-    public PersonController(PersonRepository persons) {
-        this.persons = persons;
-    }
-
-//    @Autowired
-//    public PersonController(PersonRepository appService) {
-//        this.persons = appService;
-//    }
+    public PersonRepository persons;
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
 
-//    @RequestMapping(value = "/persons/new", method = RequestMethod.GET)
-//    public String initCreationForm(Map<String, Object> entity) {
-//        Person person = new Person();
-//        entity.put("person", person);
-//        return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
-//    }
+    @RequestMapping(value = "/persons/new", method = RequestMethod.GET)
+    public String initCreationForm(Map<String, Object> entity) {
+        Person person = new Person();
+        entity.put("person", person);
+        return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
+    }
 
-//    @RequestMapping(value = "/persons/new", method = RequestMethod.POST)
-//    public String processCreationForm(@Valid Person person, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
-//        } else {
-//            this.persons.save(person);
-//            return "redirect:/persons/" + person.getId();
-//        }
-//    }
+    @RequestMapping(value = "/persons/new", method = RequestMethod.POST)
+    public String processCreationForm(@Valid Person person) {
+        this.persons.save(person);
+        return "redirect:/persons/" + person.getId();
+    }
 
     @GetMapping("/persons/find")
     public String initFindForm(Map<String, Object> model) {
@@ -63,11 +51,9 @@ class PersonController {
 
     @GetMapping("/persons")
     public String processFindForm(Person person, Map<String, Object> model, BindingResult result) {
-
 //        if (person.getLastName() == null) {
 //            person.setLastName("");
 //        }
-
         Collection<Person> results = this.persons.findByLastName(person.getLastName());
 
         if (results.isEmpty()) {
@@ -83,23 +69,19 @@ class PersonController {
         }
     }
 
-//    @RequestMapping(value = "/persons/{personId}/edit", method = RequestMethod.GET)
-//    public String initUpdatePersonForm(@PathVariable("personId") UUID personId, Model entity) {
-//        Person person = this.persons.findById(personId);
-//        entity.addAttribute(person);
-//        return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
-//    }
+    @RequestMapping(value = "/persons/{personId}/edit", method = RequestMethod.GET)
+    public String initUpdatePersonForm(@PathVariable("personId") UUID personId, Model entity) {
+        Person person = this.persons.findById(personId);
+        entity.addAttribute(person);
+        return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
+    }
 
-//    @RequestMapping(value = "/persons/{personId}/edit", method = RequestMethod.POST)
-//    public String processUpdatePersonForm(@Valid Person person, BindingResult result, @PathVariable("personId") UUID personId) {
-//        if (result.hasErrors()) {
-//            return VIEWS_PERSON_CREATE_OR_UPDATE_FORM;
-//        } else {
-//            person.setId(personId);
-//            this.persons.save(person);
-//            return "redirect:/persons/{personId}";
-//        }
-//    }
+    @RequestMapping(value = "/persons/{personId}/edit", method = RequestMethod.POST)
+    public String processUpdatePersonForm(@Valid Person person, BindingResult result, @PathVariable("personId") UUID personId) {
+        person.setId(personId);
+        this.persons.save(person);
+        return "redirect:/persons/{personId}";
+    }
 
     @RequestMapping("/persons/{personId}")
     public ModelAndView showPerson(@PathVariable("personId") UUID personId) {

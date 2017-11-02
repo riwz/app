@@ -3,20 +3,10 @@
 <body>
 <h2>Find owners</h2>
 <label>Last name</label>
-
-
 <form th:object="${person}" th:action="@{/persons}" method="get">
-
-
 <input size="20" th:field="*{lastName}"/>
-
-    <p>
-        <button type="submit">Find persons</button>
-    </p>
-    <div th:if="${#fields.hasAnyErrors()}">
-        <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
-    </div>
-
+<p><button>Find persons</button></p>
+<p th:if="${#fields.hasAnyErrors()}" th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
 </form>
 </body>
 </html>

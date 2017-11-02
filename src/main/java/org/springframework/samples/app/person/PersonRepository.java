@@ -7,10 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.app.person.Person;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface PersonRepository extends CrudRepository<Person, UUID> {
+public interface PersonRepository extends Repository<Person, UUID> {
 
     @Query("SELECT p FROM Person p WHERE last_name = :lastName")
     @Transactional
@@ -20,5 +19,5 @@ public interface PersonRepository extends CrudRepository<Person, UUID> {
     @Transactional
     Person findById(@Param("id") UUID id);
 
-//    void save(Person person);
+    Object save(Person person);
 }
